@@ -1,0 +1,38 @@
+.form{
+    display: grid;
+    height: 80vh;
+    place-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
+.form-row{
+    display: flex;
+    justify-content: center;
+}
+
+:host{
+    height: 100%;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 600px;
+    padding: 40px;
+    margin: auto;
+}
+
+.msg{
+    align-items: center;
+background-color: #08b508;
+width: 200px;
+align-self: center;
+padding: 5px;
+border-radius: 10px;
+}

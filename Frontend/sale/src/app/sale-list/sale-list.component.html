@@ -1,0 +1,134 @@
+<div class="table-container">
+  
+  <table class="flex-table">
+    <thead class="thead-light">
+      <tr>
+        <th (click)="sortBySaleId()">Sale ID<i class="fa-solid fa-arrow-down-long" *ngIf='saleIdSort==2'></i><i class="fa-solid fa-arrow-up-long" *ngIf='saleIdSort==1'></i></th>
+        <th (click)="sortByCar()">Car<i class="fa-solid fa-arrow-down-long" *ngIf='carSort==2'></i><i class="fa-solid fa-arrow-up-long" *ngIf='carSort==1'></i></th>
+        <th (click)="sortByCustomer()">Customer<i class="fa-solid fa-arrow-down-long" *ngIf='customerSort==2'></i><i class="fa-solid fa-arrow-up-long" *ngIf='customerSort==1'></i></th>
+        <th (click)="sortByDate()">Date<i class="fa-solid fa-arrow-down-long" *ngIf='dateSort==2'></i><i class="fa-solid fa-arrow-up-long" *ngIf='dateSort==1'></i></th>
+        <th (click)="sortByPrice()">Price<i class="fa-solid fa-arrow-down-long" *ngIf='priceSort==2'></i><i class="fa-solid fa-arrow-up-long" *ngIf='priceSort==1'></i></th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody *ngIf='true'>
+      <!-- <ng-container > -->
+        <tr *ngFor="let sale of sales; trackBy: trackBySaleId" class="accordion-button" data-bs-target="#collapseOne" [@shuffleRows]="animateRows">
+          <td>{{ sale.saleId }}</td>
+          <td>
+            <ng-container *ngIf="!sale.editable; else editCar">
+              {{ sale.car.brand }}
+            </ng-container>
+            <ng-template #editCar>
+              <!-- <select #car='ngModel' name="car" [(ngModel)]="sale.car.id" [disabled]="!sale.editable">
+                    <option *ngFor="let car of cars" [value]="car.id">{{ car.brand }}</option>
+                  </select> -->
+              <input #car list="cars" (ngModelChange)='validateCar(car.value)'  [(ngModel)]="sale.car.brand" />
+              <datalist id="cars">
+                <ng-container *ngFor="let car of cars">
+                  <option [value]="car.brand">{{car.brand}}</option>
+                </ng-container>
+              </datalist>
+              <div class="invalid" *ngIf='invalidCar'>No car with the name {{car.value}}</div>
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="!sale.editable; else editCustomer">
+              {{ sale.customer.customerName }}
+            </ng-container>
+            <ng-template #editCustomer>
+              <!-- <select
+                #customer="ngModel"
+                name="customer"
+                [(ngModel)]="sale.customer.customerId"
+                [disabled]="!sale.editable"
+              >
+                <option
+                  *ngFor="let customer of customers"
+                  [value]="customer.customerId"
+                >
+                  {{ customer.customerName }}
+                </option>
+              </select> -->
+              <input #customer list="customers" (ngModelChange)='validateCustomer(customer.value)' [(ngModel)]="sale.customer.customerName" />
+          <datalist id="customers">
+              <ng-container *ngFor='let customer of customers'>
+                  <option [value]='customer.customerName'></option>
+              </ng-container>
+          </datalist>
+          <div class="invalid" *ngIf='invalidCustomer'>No customer with the name {{customer.value}}</div>
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="!sale.editable; else editableDate">
+              {{ sale.saleDate | date }}
+            </ng-container>
+            <ng-template #editableDate>
+              <input
+                #date
+                class="datepicker-input"
+                type="date"
+                [value]="formatDate(sale.saleDate)"
+                (input)="updateSaleDate(sale, date.value)"
+                [readOnly]="!sale.editable"
+                [ngClass]="!sale.editable ? 'not-editable' : 'editable'"
+              />
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="!sale.editable; else editablePrice">
+              {{ sale.salePrice }}
+            </ng-container>
+            <ng-template #editablePrice>
+              <input
+                name="price"
+                type="number"
+                [(ngModel)]="sale.salePrice"
+                [readOnly]="!sale.editable"
+                [ngClass]="!sale.editable ? 'not-editable' : 'editable'"
+                pattern="[0-9]*"
+                (ngModelChange)='validatePrice()'
+              />
+              <div class="invalid" *ngIf='invalidPrice'>{{invalidPriceMsg}}</div>
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="!sale.editable; else updateButton">
+              <button id="editBtn" (click)="editSale(sale)">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+            </ng-container>
+            <ng-template #updateButton>
+              <button id="updateBtn" (click)="updateSale(sale)">
+                <i class="fa-solid fa-check"></i>
+              </button>
+            </ng-template>
+            <button
+              id="cancelBtn"
+              *ngIf="sale.editable"
+              (click)="cancelEdit(sale)"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <button id="deleteBtn" (click)="onDelete(sale)">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </td>
+        </tr>
+        <!-- <tr id="collapseOne" *ngIf='sale.clicked'>   
+          <td colspan="6">
+            <div class="accordion-body">
+              <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+          </td>
+        </tr> -->
+      <!-- </ng-container> -->
+      
+      
+    </tbody>
+    <app-spinner class="spinner" *ngIf='false'></app-spinner>
+  </table>
+  <div class="toast-wrapper" [class.show]="showToast">
+    <app-toast *ngIf="showToast" [title]="toastTitle" [message]="toastMessage" (undo)="undoDelete()"></app-toast>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="form">
+  <form [formGroup]="saleForm" class="card">
+    <div style="text-align: center;padding-bottom: 25px;font-weight: bold;font-size: 30px;">Add Sale</div>
+    <div class="form-row">
+      
+      <label class="col-sm-2 col-form-label" for="car">Car Make</label>
+      <div class="col-sm-10">
+        <input class="form-control" id="car" #car list="cars" formControlName="car" 
+        (ngModelChange)='removeErrorCar()' />
+        <datalist id="cars">
+          <ng-container *ngFor="let car of cars">
+            <option [value]="car.brand"></option>
+          </ng-container>
+        </datalist>
+        <div *ngIf="invalidCar" class="form-row mt-3 invalid-feedback">No car with the name {{ car.value }}</div>
+      </div>
+    </div>
+    <div class="form-row mt-3">
+      <label for="customer" class="col-sm-2 col-form-label">Customer</label>
+      <div class="col-sm-10">
+        <input id="customer" class="form-control" #customer list="customers" formControlName="customer" 
+        (ngModelChange)='removeErrorCustomer()' />
+        <datalist id="customers">
+          <ng-container *ngFor="let customer of customers">
+            <option [value]="customer.customerName"></option>
+          </ng-container>
+        </datalist>
+        <div *ngIf="invalidCustomer"  class="form-row mt-3 invalid-feedback">No customer with the name {{ customer.value }}</div>
+      </div>
+    </div>
+    <div class="form-row mt-3">
+      <label for="price" class="col-sm-2 col-form-label">Sale Price</label>
+      <div class="col-sm-10">
+        <input type="number" formControlName="salePrice" [value]="sale && sale.salePrice" class="form-control" />
+        <div class="form-row mt-3 invalid-feedback" *ngIf='invalidPrice'>{{invalidPriceMsg}}</div>
+      </div>
+    </div>
+    <div class="form-row mt-3">
+      <label for="date" class="col-sm-2 col-form-label">Sale Date</label>
+      <div class="col-sm-10">
+        <input type="date" formControlName="saleDate" [value]="sale && sale.saleDate" class="form-control" />
+      </div>
+    </div>
+    <div class="form-row mt-3">
+      <button class="btn btn-primary" (click)="validate()">Submit</button>
+    </div>
+    <div *ngIf='showMsg' class="form-row mt-3 msg" style="text-align: center;">
+      <i style="margin-right: 10px;color: whitesmoke;" class="fa-solid fa-check"></i>
+      Sale added
+    </div>
+  </form>
+</div>

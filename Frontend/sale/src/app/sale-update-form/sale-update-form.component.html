@@ -1,0 +1,26 @@
+<form [formGroup]='saleUpdateForm'>
+    <div>
+        <label for="id">Sale ID</label>
+        <input #saleId formControlName='id' type="number"/>
+    </div>
+    <div *ngIf='saleId.value && !salePresent'>No sale found with ID {{saleId.value}}</div>
+    <button (click)='fetchDetails()'>fetch</button>
+
+    <div *ngIf='salePresent'>
+        <!-- <div>
+
+        </div>
+        <div>
+
+        </div>
+        <div>
+            <label>Sale Price</label>
+            <input formControlName='salePrice' type="number" />
+        </div>
+        <div>
+            <label>Sale Date</label>
+            <input formControlName='saleDate' type="date" />
+        </div> -->
+        <app-sale-form [sale]='childSale'></app-sale-form>
+    </div>
+</form>

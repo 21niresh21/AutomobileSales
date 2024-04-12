@@ -1,0 +1,146 @@
+tr{
+    border: 1px solid #f3f3f3;
+}
+
+tr:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.table-container {
+  height: 100%;
+  overflow-y: auto; 
+  scrollbar-width: thin;
+  margin: 30px;
+  padding: 15px;
+    border-radius: 10px 10px 0 0;
+    background-color: #dbdbdb;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+  
+}
+
+.flex-table {
+  width: 100%;
+  border-collapse: collapse;
+  z-index: 1;
+}
+
+.flex-table th,
+.flex-table td {
+  padding: 10px 10px;
+  border: 3px solid #ccc;
+}
+
+.flex-table td {
+  padding: 0px;
+}
+
+.flex-table thead th {
+  background-color:rgba(119, 119, 119, 0.377);
+  cursor: pointer; 
+  background-color: #b5b5b5; 
+}
+
+.flex-table tbody  {
+  background-color: #f9f9f9;
+}
+
+
+button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: rgb(10, 10, 10);
+  background-color:rgb(182, 175, 175);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin : 15px;
+}
+
+tr {
+  transition: transform 0.5s ease-in-out;
+}
+
+table{
+  text-align: center;
+}
+
+
+input{
+  padding: 5px;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  border-width: 3px;
+  transition: border-color 0.5s ease
+}
+
+input:focus, input:hover{
+  border-color: rgb(126, 151, 206);
+}
+
+#deleteBtn{
+    background-color: #d20000;
+    color: beige;
+}
+
+#editBtn{
+    background-color: #0091b3;
+    color: beige;
+}
+
+#updateBtn{
+    background-color: #0e820e;;
+    color: beige;
+}
+
+#cancelBtn{
+    background-color: #5e5d5d;
+    color: beige;
+}
+
+.invalid{
+    color: #d20000;
+}
+
+
+.toast-wrapper {
+  position: fixed;
+  bottom: 20px; /* Adjust the bottom spacing */
+  right: 20px; /* Adjust the right spacing */
+  z-index: 1000; /* Ensure it's above other content */
+  pointer-events: none; /* Allow clicks to go through */
+}
+
+.toast-wrapper.show {
+  pointer-events: auto; /* Enable clicks when shown */
+}
+
+app-toast {
+  display: none;
+}
+
+.toast-wrapper.show app-toast {
+  display: block;
+}
+
+.spinner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.fa-arrow-up-long, .fa-arrow-down-long {
+  margin-left: 5px;
+  cursor: pointer;
+}
